@@ -1,0 +1,12 @@
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: #f00;
+}
+.box .left {
+  float: left;
+}
+.box .right {
+  float: right;
+  color: #58a;
+}
