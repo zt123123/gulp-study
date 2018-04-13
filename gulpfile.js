@@ -7,10 +7,26 @@ let concat = require('gulp-concat')
 let compileless = require('gulp-less')
 let rename = require('gulp-rename')
 
-gulp.task('minhtml', function() {
-    gulp.src('src/*.html')
-        .pipe(minhtml())
-        .pipe(gulp.dest('build'));
+gulp.task('concatjs', function () {
+  gulp.src('src/js/*.js')
+    .pipe(concat("index.js"))
+    .pipe(gulp.dest('src/js'));
+});
+
+gulp.task('concatcss', function () {
+  gulp.src('src/css/*.css')
+    .pipe(concat('index.css'))
+    .pipe(gulp.dest('src/css'));
+});
+
+gulp.task('concat', ['concatjs', 'concatcss'], function () {
+  console.log('合并成功');
+
+});
+gulp.task('minhtml', function () {
+  gulp.src('src/*.html')
+    .pipe(minhtml())
+    .pipe(gulp.dest('build'));
 });
 
 gulp.task('jslint', function () {
@@ -19,13 +35,13 @@ gulp.task('jslint', function () {
     .pipe(jslint.reporter());
 });
 
-gulp.task('compile-less', function() {
-    gulp.src('src/less/*.less')
-        .pipe(compileless())
-        .pipe(gulp.dest('src/css'));
+gulp.task('compile-less', function () {
+  gulp.src('src/less/*.less')
+    .pipe(compileless())
+    .pipe(gulp.dest('src/css'));
 });
 
-gulp.task('mincss', ['compile-less'],function () {
+gulp.task('mincss', ['compile-less'], function () {
   gulp.src('src/css/*.css')
     .pipe(concat('index.css'))
     .pipe(mincss())
@@ -41,10 +57,10 @@ gulp.task('minjs', function () {
     .pipe(gulp.dest('build/js'));
 });
 
-gulp.task('minify', ['mincss', 'minjs','minhtml'], function () {
+gulp.task('minify', ['mincss', 'minjs', 'minhtml'], function () {
   console.log("压缩成功");
 });
 
-gulp.task('default', ['jslint', 'minify','concat'], function () {
+gulp.task('default', ['jslint', 'minify'], function () {
   console.log("ok");
 });

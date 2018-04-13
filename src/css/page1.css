@@ -1,0 +1,23 @@
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: #f00;
+}
+.box .left {
+  float: left;
+}
+.box .right {
+  float: right;
+  color: #58a;
+}
+
+.box-sizing {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
