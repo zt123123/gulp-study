@@ -6,6 +6,8 @@ let jslint = require('gulp-jshint')
 let concat = require('gulp-concat')
 let compileless = require('gulp-less')
 let rename = require('gulp-rename')
+let imagemin = require('gulp-imagemin')
+let pngquant = require('imagemin-pngquant')
 
 gulp.task('concatjs', function () {
   gulp.src('src/js/*.js')
@@ -57,7 +59,16 @@ gulp.task('minjs', function () {
     .pipe(gulp.dest('build/js'));
 });
 
-gulp.task('minify', ['mincss', 'minjs', 'minhtml'], function () {
+gulp.task('imagemin', function () {
+  gulp.src('src/img/*')
+    .pipe(imagemin({
+      progressive: true,
+      use: [pngquant()]
+    }))
+    .pipe(gulp.dest('build/img'));
+});
+
+gulp.task('minify', ['mincss', 'minjs', 'imagemin', 'minhtml'], function () {
   console.log("压缩成功");
 });
 
